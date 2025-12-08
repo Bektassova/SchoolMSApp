@@ -1,0 +1,7 @@
+{
+  "name": "SchoolMSApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

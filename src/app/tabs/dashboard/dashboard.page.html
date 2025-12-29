@@ -1,0 +1,67 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>Dashboard</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/timetable">
+        <ion-icon slot="icon-only" name="calendar-number-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  
+ <ion-card *ngFor="let post of announcements" 
+          [color]="post.priority === 'high' ? 'warning' : 'light'" 
+          class="ion-margin-bottom">
+  <ion-card-header>
+    <ion-card-title>{{ post.title }}</ion-card-title>
+    <ion-card-subtitle>{{ post.date }}</ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
+    {{ post.content }}
+  </ion-card-content>
+</ion-card>
+  
+  <ion-grid class="ion-margin-bottom">
+    <ion-row>
+      
+      <ion-col size="6">
+        <ion-card>
+          <ion-card-header class="ion-text-center">
+           <ion-card-title color="success">{{ stats?.gpa }}</ion-card-title>
+            <ion-card-subtitle>Current GPA</ion-card-subtitle>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+      
+      <ion-col size="6">
+        <ion-card>
+          <ion-card-header class="ion-text-center">
+          <ion-card-title color="tertiary">{{ stats?.attendance }}</ion-card-title>
+            <ion-card-subtitle>Attendance</ion-card-subtitle>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+      
+    </ion-row>
+  </ion-grid>
+  
+ <ion-list-header>
+  <ion-label>Pending Tasks</ion-label>
+</ion-list-header>
+
+<ion-item *ngFor="let task of pendingTasks" detail button routerLink="/tabs/assignments">
+  <ion-icon slot="start" 
+            [name]="task.priority ? 'alert-circle-outline' : 'document-text-outline'" 
+            [color]="task.priority ? 'danger' : 'primary'">
+  </ion-icon>
+  <ion-label>
+    <h2>{{ task.title }}</h2>
+    <p>Due: {{ task.dueDate }}</p>
+  </ion-label>
+  <ion-badge *ngIf="task.priority" slot="end" color="danger">Urgently Due</ion-badge>
+</ion-item>
+  
+ 
+</ion-content>

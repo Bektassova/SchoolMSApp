@@ -1,0 +1,51 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>Grades Review</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <ion-card color="secondary" class="ion-margin-bottom">
+    <ion-card-header>
+      <ion-card-title>Semester 1 Performance</ion-card-title>
+      <ion-card-subtitle>Overall GPA</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content class="ion-text-center">
+      <h1 class="ion-no-margin" style="font-size: 3em; color: var(--ion-color-light);">3.85</h1> 
+      <p class="ion-margin-top">Based on 6 completed units.</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list-header lines="full">
+    <ion-label>Detailed Unit Scores</ion-label>
+  </ion-list-header>
+
+  <ion-item detail>
+    <ion-icon slot="start" name="school-outline" color="success"></ion-icon>
+    <ion-label>
+      <h3>Computer Science I</h3>
+      <p>Final Grade: 94% (A)</p>
+    </ion-label>
+    <ion-badge slot="end" color="success">A</ion-badge>
+  </ion-item>
+  
+  <ion-item detail>
+    <ion-icon slot="start" name="school-outline" color="warning"></ion-icon>
+    <ion-label>
+      <h3>Mathematics: Algebra</h3>
+      <p>Final Grade: 81% (B-)</p>
+    </ion-label>
+    <ion-badge slot="end" color="warning">B-</ion-badge>
+  </ion-item>
+  
+  <ion-item detail>
+    <ion-icon slot="start" name="school-outline" color="danger"></ion-icon>
+    <ion-label>
+      <h3>Physics: Mechanics</h3>
+      <p>Final Grade: 65% (D)</p>
+    </ion-label>
+    <ion-badge slot="end" color="danger">D</ion-badge>
+  </ion-item>
+
+</ion-content>

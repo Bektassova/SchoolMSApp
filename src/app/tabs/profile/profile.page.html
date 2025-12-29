@@ -1,0 +1,61 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <ion-card class="ion-margin-bottom">
+    <ion-card-header class="ion-text-center">
+      <ion-avatar class="profile-avatar">
+        <img alt="Profile Avatar" src="https://ionicframework.com/docs/img/demos/avatar.svg" /> 
+      </ion-avatar>
+      <ion-card-title class="ion-padding-top">Alex Johnson</ion-card-title>
+      <ion-card-subtitle>Student ID: 009876</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content class="ion-text-center">
+      <p>B.Sc. Computer Science</p>
+      <p>Enrollment Year: 2024</p>
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-list lines="full">
+    
+    <ion-list-header>
+      <ion-label>Account Details</ion-label>
+    </ion-list-header>
+
+    <ion-item detail button>
+      <ion-icon slot="start" name="person-circle-outline"></ion-icon>
+      <ion-label>Personal Information</ion-label>
+    </ion-item>
+    
+    <ion-item detail button>
+      <ion-icon slot="start" name="mail-outline"></ion-icon>
+      <ion-label>Contact Information</ion-label>
+    </ion-item>
+
+    <ion-item detail button>
+      <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
+      <ion-label>Change Password</ion-label>
+    </ion-item>
+    
+    <ion-list-header>
+      <ion-label>App Settings</ion-label>
+    </ion-list-header>
+
+    <ion-item>
+      <ion-icon slot="start" name="notifications-outline"></ion-icon>
+      <ion-label>Push Notifications</ion-label>
+      <ion-toggle slot="end" checked></ion-toggle>
+    </ion-item>
+
+    <ion-item button color="danger" class="ion-margin-top" routerLink="/">
+      <ion-icon slot="start" name="log-out-outline"></ion-icon>
+      <ion-label>Log Out</ion-label>
+    </ion-item>
+
+  </ion-list>
+  
+</ion-content>

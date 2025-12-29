@@ -1,0 +1,63 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/units"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Unit: {{ unitId | uppercase }}</ion-title>
+  </ion-toolbar>
+
+  <ion-segment [value]="activeSegment" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="overview">
+      <ion-label>Overview</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="syllabus">
+      <ion-label>Syllabus</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="assignments">
+      <ion-label>Assignments</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="grades">
+      <ion-label>Grades</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+  <div *ngIf="activeSegment === 'overview'" class="content-section ion-padding">
+    <h2>{{ unitId | uppercase }} Overview</h2>
+    <p>This section provides a general description, prerequisites, and learning outcomes for the course.</p>
+    <ion-list>
+        <ion-item><ion-label>Credits: 15</ion-label></ion-item>
+        <ion-item><ion-label>Lecturer: Prof. E. Jones</ion-label></ion-item>
+    </ion-list>
+  </div>
+
+  <div *ngIf="activeSegment === 'syllabus'" class="content-section ion-padding">
+    <h2>Weekly Syllabus</h2>
+    <p>This area will list the weekly topics and required reading materials.</p>
+    <ion-list>
+        <ion-item><ion-label>Week 1: Introduction to Programming</ion-label></ion-item>
+        <ion-item><ion-label>Week 2: Data Structures (Arrays)</ion-label></ion-item>
+    </ion-list>
+  </div>
+
+  <div *ngIf="activeSegment === 'assignments'" class="content-section ion-padding">
+    <h2>Assignments</h2>
+    <p>This area will list all upcoming and past assignments for this unit.</p>
+    <ion-list>
+        <ion-item><ion-label>Assignment 1: Due Nov 15</ion-label></ion-item>
+        <ion-item><ion-label>Final Project: Due Dec 20</ion-label></ion-item>
+    </ion-list>
+  </div>
+
+  <div *ngIf="activeSegment === 'grades'" class="content-section ion-padding">
+    <h2>Grades Breakdown</h2>
+    <p>This area will show your current score and grading distribution for the unit.</p>
+    <ion-list>
+        <ion-item><ion-label>Midterm Score: 85%</ion-label></ion-item>
+        <ion-item><ion-label>Overall Grade: B+</ion-label></ion-item>
+    </ion-list>
+  </div>
+
+</ion-content>

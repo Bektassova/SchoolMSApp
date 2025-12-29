@@ -3,34 +3,45 @@ import { TabsPage } from './tabs.page';
 
 export const routes: Routes = [
   {
-    path: 'tabs',
+    path: '',
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
-        loadComponent: () =>
-          import('../tab1/tab1.page').then((m) => m.Tab1Page),
+        path: 'units',
+        loadComponent: () => import('./units/units.page').then(m => m.UnitsPage),
+      },
+    {
+        path: 'units/:id',
+        // Мы выходим из tabs (../) и сразу заходим в unit-detail
+        loadComponent: () => import('../unit-detail/unit-detail.page').then(m => m.UnitDetailPage),
+      },
+      // Добавляем Dashboard
+      {
+        path: 'dashboard',
+        loadComponent: () => import('./dashboard/dashboard.page').then(m => m.DashboardPage),
+      },
+      // Добавляем Assignments
+    {
+        path: 'assignments',
+        loadComponent: () => import('./assignments/assignments.page').then(m => m.AssignmentsPage),
       },
       {
-        path: 'tab2',
-        loadComponent: () =>
-          import('../tab2/tab2.page').then((m) => m.Tab2Page),
+        path: 'timetable',
+        loadComponent: () => import('../timetable/timetable.page').then(m => m.TimetablePage),
       },
       {
-        path: 'tab3',
-        loadComponent: () =>
-          import('../tab3/tab3.page').then((m) => m.Tab3Page),
+        path: 'grades',
+        loadComponent: () => import('./grades/grades.page').then(m => m.GradesPage),
+      },
+      {
+        path: 'profile',
+        loadComponent: () => import('./profile/profile.page').then(m => m.ProfilePage),
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: 'units',
         pathMatch: 'full',
       },
     ],
-  },
-  {
-    path: '',
-    redirectTo: '/tabs/tab1',
-    pathMatch: 'full',
   },
 ];

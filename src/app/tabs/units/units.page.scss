@@ -1,0 +1,47 @@
+.unit-card {
+  margin-bottom: 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  --background: #ffffff;
+}
+
+.icon-circle {
+  background: rgba(var(--ion-color-primary-rgb), 0.1);
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  
+  ion-icon {
+    font-size: 24px;
+  }
+}
+
+.unit-title {
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.lecturer-text {
+  margin: 4px 0 0 0;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.progress-container {
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+    font-weight: 500;
+  }
+  
+  ion-progress-bar {
+    height: 8px;
+    border-radius: 4px;
+  }
+}

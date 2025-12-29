@@ -1,0 +1,58 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>My Enrolled Units</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-md="10" size-lg="8">
+        
+        <ion-searchbar placeholder="Search by Unit,Code,or Name."></ion-searchbar>
+
+        <ion-card *ngFor="let unit of units" 
+                  [routerLink]="['/tabs/units', unit.id]" 
+                  button="true" 
+                  class="unit-card">
+          <ion-card-content>
+            <ion-grid class="ion-no-padding">
+              <ion-row class="ion-align-items-center">
+                <ion-col size="2">
+                  <div class="icon-circle">
+                    <ion-icon [name]="unit.icon" color="primary"></ion-icon>
+                  </div>
+                </ion-col>
+
+                <ion-col size="10" class="ion-padding-start">
+                  <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <div>
+                      <h2 class="unit-title">{{ unit.code }}: {{ unit.name }}</h2>
+                      <p class="lecturer-text">Lecturer: {{ unit.lecturer }}</p>
+                    </div>
+                    <ion-badge [color]="unit.status === 'Active' ? 'success' : 'warning'" mode="ios">
+                      {{ unit.status }}
+                    </ion-badge>
+                  </div>
+                </ion-col>
+              </ion-row>
+
+              <ion-row class="ion-margin-top">
+                <ion-col size="12">
+                  <div class="progress-container">
+                    <div class="progress-label">
+                      <span>Progress</span>
+                      <span>{{ unit.progress }}%</span>
+                    </div>
+                    <ion-progress-bar [value]="unit.progress / 100" color="primary"></ion-progress-bar>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

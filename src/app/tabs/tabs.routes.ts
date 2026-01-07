@@ -25,9 +25,9 @@ export const routes: Routes = [
         path: 'assignments',
         loadComponent: () => import('./assignments/assignments.page').then(m => m.AssignmentsPage),
       },
-      {
+    {
         path: 'timetable',
-        loadComponent: () => import('../timetable/timetable.page').then(m => m.TimetablePage),
+        loadComponent: () => import('../../app/timetable/timetable.page').then(m => m.TimetablePage),
       },
       {
         path: 'grades',
@@ -40,6 +40,11 @@ export const routes: Routes = [
       {
         path: '',
         redirectTo: 'units',
+        pathMatch: 'full',
+      },
+      {
+        path: '',
+        redirectTo: 'timetable',
         pathMatch: 'full',
       },
     ],

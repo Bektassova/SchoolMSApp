@@ -47,4 +47,9 @@ export const routes: Routes = [
     path: 'unit-detail/:id', // <-- INSERT THIS NEW ROUTE HERE
     loadComponent: () => import('./unit-detail/unit-detail.page').then( m => m.UnitDetailPage)
   },
+  {
+    path: 'student-submission',
+    loadComponent: () => 
+      import('./screens/student-submission.page').then(m => m.StudentSubmissionPage),
+  },
 ];

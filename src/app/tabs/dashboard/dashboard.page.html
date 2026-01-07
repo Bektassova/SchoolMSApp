@@ -1,5 +1,5 @@
 <ion-header [translucent]="true">
-  <ion-toolbar color="primary">
+  <ion-toolbar color="tertiary">
     <ion-title>Dashboard</ion-title>
     <ion-buttons slot="end">
       <ion-button routerLink="/timetable">
@@ -10,6 +10,33 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
+  
+  <ion-card color="light" class="ion-no-margin ion-margin-bottom">
+    <ion-card-header>
+      <ion-card-title>Quick Access</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Check your schedule for the week.</p>
+      <ion-item lines="none" *ngIf="getNextClass() as next; else noMoreClasses">
+  <ion-icon name="time-outline" slot="start" color="warning"></ion-icon>
+  <ion-label>
+    <h3>Next Class</h3>
+    <p><strong>{{ next.subject }}</strong> at {{ next.time }}</p>
+  </ion-label>
+</ion-item>
+
+<ng-template #noMoreClasses>
+  <ion-item lines="none" style="--background: #6b79a1; border-radius: 10px; margin-top: 10px;">
+    <ion-icon name="checkmark-done-outline" slot="start" style="color: #2dd36f;"></ion-icon>
+    <ion-label style="color: #121111;">No more classes today!</ion-label>
+  </ion-item>
+</ng-template>
+      <ion-button expand="block" fill="solid" color="medium" routerLink="/tabs/timetable" style="margin-top: 10px;">
+        <ion-icon name="calendar-outline" slot="start"></ion-icon>
+        View Full Timetable
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
   
  <ion-card *ngFor="let post of announcements" 
           [color]="post.priority === 'high' ? 'warning' : 'light'" 
@@ -23,6 +50,7 @@
   </ion-card-content>
 </ion-card>
   
+
   <ion-grid class="ion-margin-bottom">
     <ion-row>
       

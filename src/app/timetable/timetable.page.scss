@@ -1,0 +1,12 @@
+.button-container {
+  display: flex;
+  justify-content: center; /* Centers the button horizontally */
+  width: 100%;
+}
+
+.narrow-button {
+  --border-radius: 20px; /* Makes it look modern/rounded */
+  width: 200px;          /* Set the specific narrow width you want */
+  margin-top: 10px;
+  font-size: 0.9em;
+}

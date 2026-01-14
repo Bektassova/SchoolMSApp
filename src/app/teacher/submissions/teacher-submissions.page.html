@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Submissions</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item *ngFor="let s of submissions">
+      <ion-label>
+        <h2>{{ s.unit }} — {{ s.assignment }}</h2>
+        <p>{{ s.student }} ({{ s.email }})</p>
+        <ion-note>File: {{ s.fileName }}</ion-note>
+      </ion-label>
+    </ion-item>
+
+    <ion-item *ngFor="let s of submissions">
+      <ion-label>
+        <p>Mark (0–100)</p>
+      </ion-label>
+      <ion-input type="number" min="0" max="100" [(ngModel)]="s.mark"></ion-input>
+    </ion-item>
+
+    <ion-item *ngFor="let s of submissions">
+      <ion-textarea rows="2" placeholder="Feedback..." [(ngModel)]="s.feedback"></ion-textarea>
+    </ion-item>
+
+    <ion-item *ngFor="let s of submissions">
+      <ion-button (click)="save(s)">Save</ion-button>
+      <ion-button color="danger" (click)="remove(s.id)">Delete</ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>

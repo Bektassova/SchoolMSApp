@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Create Assignment</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-label position="stacked">Unit</ion-label>
+    <ion-select [(ngModel)]="unit" placeholder="Select unit">
+      <ion-select-option *ngFor="let u of units" [value]="u">{{ u }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item class="ion-margin-top">
+    <ion-label position="stacked">Assignment Title</ion-label>
+    <ion-input [(ngModel)]="title"></ion-input>
+  </ion-item>
+
+  <ion-item class="ion-margin-top">
+    <ion-label position="stacked">Description</ion-label>
+    <ion-textarea rows="6" [(ngModel)]="description"></ion-textarea>
+  </ion-item>
+
+  <ion-item class="ion-margin-top">
+    <ion-label position="stacked">Due Date</ion-label>
+    <ion-input type="date" [(ngModel)]="dueDate"></ion-input>
+  </ion-item>
+
+  <ion-button expand="block" class="ion-margin-top" (click)="save()">
+    Create Assignment
+  </ion-button>
+
+  <ion-button expand="block" fill="clear" routerLink="/teacher-tabs/assignments">
+    Cancel
+  </ion-button>
+</ion-content>

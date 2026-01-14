@@ -75,3 +75,127 @@ This application provides a centralized hub for students to track their units, a
 * **Navigation Shortcut:** Added a "Quick Access" card to the Dashboard.
 * **Inter-page Routing:** Implemented a direct link to the Timetable using `routerLink`, improving user flow between modules.
 * **Empty State Handling:** Implemented "Empty State" UI patterns. The app displays friendly feedback (e.g., "No more classes today") instead of a blank screen when no data is available for the current time.
+Debugging & Architecture Notes
+
+During development of the Ionic Angular mobile application, several critical architectural and interaction issues were discovered and successfully resolved.
+
+This section documents the major problems and the applied solutions.
+
+🔐 Authentication System (Student Login)
+
+Originally, the application did not support real role-based login and student access.
+A demo authentication system was implemented to allow proper role routing.
+
+Implemented:
+
+AuthService with demo users (student / teacher / admin)
+
+Real login logic with email/password verification
+
+Session storage via localStorage
+
+Role-based redirection:
+
+/student-tabs/...
+
+/teacher-tabs/...
+
+Standalone LoginPage fully reconfigured with FormsModule, IonicModule, and routing fixes
+
+# Student Tabs Architecture
+
+A full Student Tabs navigation system was created and structured:
+
+student-tabs.page.ts
+
+student-tabs.page.html
+
+Tab navigation for:
+
+Dashboard
+
+Assignments
+
+Units
+
+Grades
+
+Profile
+
+Proper Ionic <ion-tabs> + <ion-router-outlet> integration
+
+Child routing configured in app.routes.ts
+
+This enabled real tab-based navigation for the student role.
+
+# Critical Ionic Click-Blocking Bug (Major Fix)
+
+A severe Ionic layout bug was discovered:
+
+A ghost ion-router-outlet overlay layer was rendered above the page content, fully blocking all click/touch interactions inside:
+
+Dashboard
+
+Assignments
+
+Units
+
+Timetable
+while Tabs navigation remained functional.
+
+This made the UI appear normal, but completely non-interactive.
+
+Root cause
+
+Ionic rendered a hydrated ion-router-outlet as a full-screen overlay with position: absolute, intercepting all pointer events.
+
+Final Solution (Global Fix)
+
+Applied a targeted CSS fix to neutralize the invisible overlay while preserving routing:
+/* Kill ghost router-outlet overlay */
+ion-router-outlet.hydrated {
+  pointer-events: none !important;
+}
+
+/* Allow real page content to receive clicks */
+ion-router-outlet.hydrated > * {
+  pointer-events: auto !important;
+}
+Added to: src/global.scss
+
+This instantly restored full click functionality across all routed pages.
+
+# Result
+
+Login fully functional
+
+Student Tabs fully interactive
+
+Dashboard widgets clickable
+
+Assignments, Units, Timetable restored
+## Teacher Module (Demo) — implemented
+
+Added a basic Teacher area with role-based access and navigation.
+
+### What was done
+- Enabled demo login for teacher (`teacher@test.com` / `123456`) via `AuthService`.
+- Implemented `TeacherTabsPage` as an Ionic Tabs container with:
+  - My Assignments
+  - Create Assignment
+  - Submissions
+  - Profile (placeholder)
+- Created standalone Teacher pages (demo UI + sample data):
+  - `TeacherAssignmentsPage` (list, delete demo items, open submissions)
+  - `CreateAssignmentPage` (form, demo save)
+  - `TeacherSubmissionsPage` (marks + feedback, delete demo)
+  - `TeacherProfilePage` (temporary placeholder)
+- Updated routing (`app.routes.ts`) with `teacher-tabs` children routes:
+  - `/teacher-tabs/assignments`
+  - `/teacher-tabs/create-assignment`
+  - `/teacher-tabs/submissions`
+  - `/teacher-tabs/profile`
+  - default redirect to assignments
+
+### Notes
+- This is a demo implementation (no API yet). Data is hardcoded and will be connected to backend later.

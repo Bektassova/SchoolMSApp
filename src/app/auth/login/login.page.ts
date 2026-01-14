@@ -48,7 +48,8 @@ export class LoginPage {
   }
 
   if (user.role === 'teacher') {
-    this.navCtrl.navigateRoot('/teacher-tabs/dashboard');
+   this.navCtrl.navigateRoot('/teacher-tabs/assignments');
+
     return;
   }
 

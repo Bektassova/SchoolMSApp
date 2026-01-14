@@ -7,17 +7,30 @@
 <ion-content class="ion-padding">
   <div class="login-container">
     
-    <ion-item>
-      <ion-input label="Email:" label-placement="floating" type="email" placeholder="Enter your email"></ion-input>
-    </ion-item>
-    
-    <ion-item class="ion-margin-top">
-      <ion-input label="Password:" label-placement="floating" type="password" placeholder="Enter your password"></ion-input>
-    </ion-item>
-    
-    <ion-button expand="full" color="primary" class="ion-margin-top" (click)="login()">
+   <ion-item>
+  <ion-input
+    label="Email:"
+    label-placement="floating"
+    type="email"
+    placeholder="Enter your email"
+    [(ngModel)]="email">
+  </ion-input>
+</ion-item>
+
+<ion-item class="ion-margin-top">
+  <ion-input
+    label="Password:"
+    label-placement="floating"
+    type="password"
+    placeholder="Enter your password"
+    [(ngModel)]="password">
+  </ion-input>
+</ion-item>
+
+   <ion-button expand="full" color="primary" class="ion-margin-top" (click)="login()">
   Login
 </ion-button>
-    
+
+
     <p class="ion-text-center ion-margin-top">
       <a routerLink="/auth/forgot-password">Forgot password?</a>

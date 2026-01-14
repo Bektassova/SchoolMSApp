@@ -1,8 +1,10 @@
 <ion-header [translucent]="true">
+
+
   <ion-toolbar color="tertiary">
     <ion-title>Dashboard</ion-title>
     <ion-buttons slot="end">
-      <ion-button routerLink="/timetable">
+      <ion-button routerLink="/student-tabs/timetable">
         <ion-icon slot="icon-only" name="calendar-number-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -31,10 +33,12 @@
     <ion-label style="color: #121111;">No more classes today!</ion-label>
   </ion-item>
 </ng-template>
-      <ion-button expand="block" fill="solid" color="medium" routerLink="/tabs/timetable" style="margin-top: 10px;">
-        <ion-icon name="calendar-outline" slot="start"></ion-icon>
-        View Full Timetable
-      </ion-button>
+   <ion-button expand="block" fill="solid" color="medium" (click)="goTimetable()" style="margin-top: 10px;">
+  <ion-icon name="calendar-outline" slot="start"></ion-icon>
+  View Full Timetable
+</ion-button>
+
+
     </ion-card-content>
   </ion-card>
   
@@ -79,7 +83,8 @@
   <ion-label>Pending Tasks</ion-label>
 </ion-list-header>
 
-<ion-item *ngFor="let task of pendingTasks" detail button routerLink="/tabs/assignments">
+<ion-item *ngFor="let task of pendingTasks" detail button routerLink="/student-tabs/assignments">
+
   <ion-icon slot="start" 
             [name]="task.priority ? 'alert-circle-outline' : 'document-text-outline'" 
             [color]="task.priority ? 'danger' : 'primary'">

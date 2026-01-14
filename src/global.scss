@@ -35,3 +35,13 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+/* Kill ghost router-outlet overlay */
+ion-router-outlet.hydrated {
+  pointer-events: none !important;
+}
+
+/* But allow clicks inside real page content */
+ion-router-outlet.hydrated > * {
+  pointer-events: auto !important;
+}

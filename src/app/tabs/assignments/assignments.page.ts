@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { DataService, Assignment } from '../../services/data.service';
 
@@ -9,7 +10,7 @@ import { DataService, Assignment } from '../../services/data.service';
   templateUrl: './assignments.page.html', // Проверьте, что этот файл рядом
   styleUrls: ['./assignments.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule]
+   imports: [IonicModule, CommonModule, FormsModule, RouterModule],
 })
 export class AssignmentsPage implements OnInit {
   selectedSegment: string = 'upcoming';

@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
 import { RouterModule } from '@angular/router';
-import { 
-  IonHeader, IonToolbar, IonTitle, IonContent, 
-  IonProgressBar, IonSearchbar, IonIcon, IonBadge,
-  IonCard, IonCardContent, IonGrid, IonRow, IonCol
+import {
+  IonHeader, IonToolbar, IonTitle, IonContent,
+  IonGrid, IonRow, IonCol,
+  IonCard, IonCardContent,
+  IonItem, IonLabel, IonIcon, IonBadge, IonProgressBar, IonSearchbar
 } from '@ionic/angular/standalone'; // Я удалил IonText отсюда
 import { DataService, Unit } from '../../services/data.service';
 
@@ -14,12 +17,15 @@ import { DataService, Unit } from '../../services/data.service';
   styleUrls: ['./units.page.scss'],
   standalone: true,
   imports: [
-    CommonModule, 
+    CommonModule,
+    FormsModule,
     RouterModule,
-    IonHeader, IonToolbar, IonTitle, IonContent, 
-    IonProgressBar, IonSearchbar, IonIcon, IonBadge,
-    IonCard, IonCardContent, IonGrid, IonRow, IonCol
-  ]
+
+    IonHeader, IonToolbar, IonTitle, IonContent,
+    IonGrid, IonRow, IonCol,
+    IonCard, IonCardContent,
+    IonItem, IonLabel, IonIcon, IonBadge, IonProgressBar, IonSearchbar
+  ],
 })
 export class UnitsPage implements OnInit {
   public units: Unit[] = [];

@@ -1,26 +1,58 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router'; // Added for navigation
-
-// The rest of the necessary standalone imports
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonInput, IonButton } from '@ionic/angular/standalone';
+import { IonicModule, NavController, AlertController } from '@ionic/angular';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonButton, IonInput, IonItem, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonicModule, CommonModule, FormsModule],
 })
-export class LoginPage implements OnInit {
+export class LoginPage {
+  email = '';
+  password = '';
 
-// We add the Router as a private variable here.
-constructor(private router: Router) { }
+  constructor(
+    private authService: AuthService,
+    private navCtrl: NavController,
+    private alertCtrl: AlertController
+  ) {}
 
-  ngOnInit() {
+ async login() {
+
+
+  // 2) Логи, чтобы увидеть что реально в полях
+  console.log('EMAIL RAW:', JSON.stringify(this.email));
+  console.log('PASS RAW:', JSON.stringify(this.password));
+
+  // 3) Проверка demo-юзера
+  const user = this.authService.login(this.email, this.password);
+
+  if (!user) {
+    const alertBox = await this.alertCtrl.create({
+      header: 'Demo login failed',
+      message: `User not found.\nTry: student@test.com / 123456`,
+      buttons: ['OK'],
+    });
+    await alertBox.present();
+    return;
   }
-login() {
-  this.router.navigateByUrl('/tabs/units');
+
+  // 4) Переход
+  if (user.role === 'student') {
+    this.navCtrl.navigateRoot('/student-tabs/dashboard');
+    return;
+  }
+
+  if (user.role === 'teacher') {
+    this.navCtrl.navigateRoot('/teacher-tabs/dashboard');
+    return;
+  }
+
+  this.navCtrl.navigateRoot('/auth/login');
 }
+
 }

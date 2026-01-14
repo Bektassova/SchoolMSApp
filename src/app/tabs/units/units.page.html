@@ -11,10 +11,13 @@
         
         <ion-searchbar placeholder="Search by Unit,Code,or Name."></ion-searchbar>
 
-        <ion-card *ngFor="let unit of units" 
-                  [routerLink]="['/tabs/units', unit.id]" 
-                  button="true" 
-                  class="unit-card">
+       <ion-card *ngFor="let unit of units" class="unit-card">
+  <ion-item button detail [routerLink]="['/unit-detail', unit.id]">
+    <ion-label>
+      <h2>{{ unit.code }}: {{ unit.name }}</h2>
+      <p>Lecturer: {{ unit.lecturer }}</p>
+    </ion-label>
+  </ion-item>
           <ion-card-content>
             <ion-grid class="ion-no-padding">
               <ion-row class="ion-align-items-center">

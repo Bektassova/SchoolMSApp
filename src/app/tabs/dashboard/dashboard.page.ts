@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-// 1. Сохраняем ваши импорты типов и DataService
+import { RouterModule, Router } from '@angular/router';
+
 import { DataService, Announcement, Unit, Assignment } from '../../services/data.service';
-// 2. Сохраняем детальный список Standalone компонентов
-import { 
-  IonHeader, IonToolbar, IonTitle, IonContent, IonCard, 
-  IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, 
-  IonGrid, IonRow, IonCol, IonListHeader, IonLabel,  
-  IonItem, IonIcon, IonBadge, IonButtons, IonButton, IonList
+
+import {
+  IonHeader, IonToolbar, IonTitle, IonContent, IonCard,
+  IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent,
+  IonGrid, IonRow, IonCol, IonListHeader, IonLabel,
+  IonItem, IonIcon, IonBadge, IonButtons, IonButton
 } from '@ionic/angular/standalone';
+
 import { addIcons } from 'ionicons';
 import { calendarOutline, timeOutline, checkmarkDoneOutline } from 'ionicons/icons';
 
@@ -18,24 +19,26 @@ import { calendarOutline, timeOutline, checkmarkDoneOutline } from 'ionicons/ico
   templateUrl: 'dashboard.page.html',
   styleUrls: ['dashboard.page.scss'],
   standalone: true,
-  // Добавляем все компоненты в imports
   imports: [
-    CommonModule, RouterModule, IonHeader, IonToolbar, IonTitle, IonContent, 
-    IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, 
-    IonGrid, IonRow, IonCol, IonListHeader, IonLabel, IonItem, IonIcon, 
-    IonBadge, IonButtons, IonButton, IonList
+    CommonModule,
+    RouterModule,
+    IonHeader, IonToolbar, IonTitle, IonContent,
+    IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent,
+    IonGrid, IonRow, IonCol,
+    IonListHeader, IonLabel,
+    IonItem, IonIcon, IonBadge,
+    IonButtons, IonButton
   ]
 })
 export class DashboardPage implements OnInit {
-  // Используем ваши типы данных
+
   announcements: Announcement[] = [];
   units: Unit[] = [];
   stats: any = null;
   pendingTasks: Assignment[] = [];
 
-  // Данные для виджета "Next Class"
   schedule: any = {
-   monday: [
+    monday: [
       { time: '09:00 - 10:30', subject: 'Programming I', room: 'Lab 102', type: 'Lecture' },
       { time: '11:00 - 12:30', subject: 'Mathematics', room: 'Room 305', type: 'Seminar' }
     ],
@@ -57,8 +60,7 @@ export class DashboardPage implements OnInit {
     ]
   };
 
-  constructor(private dataService: DataService) {
-    // Регистрация иконок для Standalone режима
+  constructor(private dataService: DataService, private router: Router) {
     addIcons({ calendarOutline, timeOutline, checkmarkDoneOutline });
   }
 
@@ -69,6 +71,11 @@ export class DashboardPage implements OnInit {
     this.pendingTasks = this.dataService.getAssignments();
   }
 
+  goTimetable() {
+
+    this.router.navigateByUrl('/student-tabs/timetable');
+  }
+
   getNextClass() {
     const now = new Date();
     const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
@@ -76,10 +83,12 @@ export class DashboardPage implements OnInit {
     const currentTime = now.getHours() * 60 + now.getMinutes();
 
     const todayClasses = this.schedule[todayName] || [];
-    
+
     return todayClasses.find((lesson: any) => {
-      const [hours, minutes] = lesson.time.split(':').map(Number);
-      return (hours * 60 + minutes) > currentTime;
+      // берём НАЧАЛО интервала, например "09:00" из "09:00 - 10:30"
+      const start = String(lesson.time).split(' - ')[0];
+      const [h, m] = start.split(':').map(Number);
+      return (h * 60 + m) > currentTime;
     });
   }
 }

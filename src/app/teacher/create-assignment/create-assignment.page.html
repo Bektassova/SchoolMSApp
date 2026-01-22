@@ -5,33 +5,60 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-item>
-    <ion-label position="stacked">Unit</ion-label>
-    <ion-select [(ngModel)]="unit" placeholder="Select unit">
-      <ion-select-option *ngFor="let u of units" [value]="u">{{ u }}</ion-select-option>
-    </ion-select>
-  </ion-item>
 
-  <ion-item class="ion-margin-top">
-    <ion-label position="stacked">Assignment Title</ion-label>
-    <ion-input [(ngModel)]="title"></ion-input>
-  </ion-item>
+  <ion-card>
+    <ion-card-content>
 
-  <ion-item class="ion-margin-top">
-    <ion-label position="stacked">Description</ion-label>
-    <ion-textarea rows="6" [(ngModel)]="description"></ion-textarea>
-  </ion-item>
+      <!-- Unit -->
+      <ion-item>
+        <ion-label position="stacked">Unit</ion-label>
+        <ion-select placeholder="Select Unit">
+          <ion-select-option value="cs101">CS101 – Programming</ion-select-option>
+          <ion-select-option value="math">Mathematics</ion-select-option>
+          <ion-select-option value="marketing">Marketing</ion-select-option>
+        </ion-select>
+      </ion-item>
 
-  <ion-item class="ion-margin-top">
-    <ion-label position="stacked">Due Date</ion-label>
-    <ion-input type="date" [(ngModel)]="dueDate"></ion-input>
-  </ion-item>
+      <!-- Assignment title -->
+      <ion-item>
+        <ion-label position="stacked">Assignment Title</ion-label>
+        <ion-input placeholder="Enter assignment title"></ion-input>
+      </ion-item>
 
-  <ion-button expand="block" class="ion-margin-top" (click)="save()">
-    Create Assignment
-  </ion-button>
+      <!-- Description -->
+      <ion-item>
+        <ion-label position="stacked">Description</ion-label>
+        <ion-textarea rows="4" placeholder="Enter description"></ion-textarea>
+      </ion-item>
 
-  <ion-button expand="block" fill="clear" routerLink="/teacher-tabs/assignments">
-    Cancel
-  </ion-button>
+      <!-- Due date -->
+      <ion-item>
+        <ion-label position="stacked">Due Date</ion-label>
+        <ion-datetime presentation="date"></ion-datetime>
+      </ion-item>
+
+      <!-- File -->
+      <ion-item>
+        <ion-label position="stacked">Assignment File</ion-label>
+        <input type="file" />
+        <ion-note>Allowed: PDF, DOC, DOCX</ion-note>
+      </ion-item>
+
+      <!-- Buttons -->
+      <ion-row class="ion-margin-top">
+        <ion-col size="6">
+          <ion-button expand="block" color="success">
+            Create Assignment
+          </ion-button>
+        </ion-col>
+        <ion-col size="6">
+          <ion-button expand="block" color="medium" routerLink="/teacher-tabs/assignments">
+            Cancel
+          </ion-button>
+        </ion-col>
+      </ion-row>
+
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>

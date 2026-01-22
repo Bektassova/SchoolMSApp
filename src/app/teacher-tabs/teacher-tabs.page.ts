@@ -24,33 +24,34 @@ import {
     IonIcon
   ],
   template: `
-    <ion-tabs>
-      <ion-router-outlet></ion-router-outlet>
+   <ion-tabs>
+  <ion-router-outlet></ion-router-outlet>
 
-      <ion-tab-bar slot="bottom">
+  <ion-tab-bar slot="bottom">
 
-        <ion-tab-button tab="assignments" href="/teacher-tabs/assignments">
-          <ion-icon name="document-text-outline"></ion-icon>
-          <ion-label>My Assignments</ion-label>
-        </ion-tab-button>
+    <ion-tab-button tab="assignments">
+      <ion-icon name="document-text-outline"></ion-icon>
+      <ion-label>My Assignments</ion-label>
+    </ion-tab-button>
 
-        <ion-tab-button tab="create" href="/teacher-tabs/create-assignment">
-          <ion-icon name="add-circle-outline"></ion-icon>
-          <ion-label>Create</ion-label>
-        </ion-tab-button>
+    <ion-tab-button tab="create-assignment">
+      <ion-icon name="add-circle-outline"></ion-icon>
+      <ion-label>Create</ion-label>
+    </ion-tab-button>
 
-        <ion-tab-button tab="submissions" href="/teacher-tabs/submissions">
-          <ion-icon name="file-tray-full-outline"></ion-icon>
-          <ion-label>Submissions</ion-label>
-        </ion-tab-button>
+    <ion-tab-button tab="submissions">
+      <ion-icon name="file-tray-full-outline"></ion-icon>
+      <ion-label>Submissions</ion-label>
+    </ion-tab-button>
 
-        <ion-tab-button tab="profile" href="/teacher-tabs/profile">
-          <ion-icon name="person-outline"></ion-icon>
-          <ion-label>Profile</ion-label>
-        </ion-tab-button>
+    <ion-tab-button tab="profile">
+      <ion-icon name="person-outline"></ion-icon>
+      <ion-label>Profile</ion-label>
+    </ion-tab-button>
 
-      </ion-tab-bar>
-    </ion-tabs>
+  </ion-tab-bar>
+</ion-tabs>
+
   `
 })
 export class TeacherTabsPage {}

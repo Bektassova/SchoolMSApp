@@ -199,3 +199,26 @@ Added a basic Teacher area with role-based access and navigation.
 
 ### Notes
 - This is a demo implementation (no API yet). Data is hardcoded and will be connected to backend later.
+
+## Teacher Profile — implemented (Demo)
+
+Teacher Profile page was initially empty. It has now been implemented as a standalone page with demo data and basic account actions.
+
+### What was done
+- Added `TeacherProfilePage` UI (card with teacher details + settings/actions list).
+- Displayed demo fields:
+  - Username
+  - Full Name
+  - Email
+  - Date of Birth
+  - User ID
+  - Role (Lecturer)
+- Added basic account actions (demo buttons):
+  - Personal Information
+  - Change Password
+  - Push Notifications
+  - Log Out (demo handler)
+
+### Fix applied
+- Resolved Angular build error `NG2008: Could not find stylesheet file` by creating the missing file:
+  - `src/app/teacher/profile/teacher-profile.page.scss`

@@ -3,9 +3,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import {
-  IonHeader, IonToolbar, IonTitle, IonContent,
-  IonItem, IonLabel, IonInput, IonTextarea, IonSelect, IonSelectOption,
-  IonButton
+    IonHeader, IonToolbar, IonTitle, IonContent,
+  IonCard, IonCardContent,
+  IonItem, IonLabel, IonInput, IonTextarea,
+  IonSelect, IonSelectOption,
+  IonDatetime,
+  IonButton,
+  IonRow, IonCol,
+  IonNote
 } from '@ionic/angular/standalone';
 
 @Component({
@@ -14,11 +19,33 @@ import {
   templateUrl: './create-assignment.page.html',
   styleUrls: ['./create-assignment.page.scss'],
   imports: [
-    CommonModule, FormsModule, RouterModule,
-    IonHeader, IonToolbar, IonTitle, IonContent,
-    IonItem, IonLabel, IonInput, IonTextarea, IonSelect, IonSelectOption,
-    IonButton
-  ],
+  CommonModule,
+  FormsModule,
+  RouterModule,
+
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+
+  IonCard,
+  IonCardContent,
+
+  IonItem,
+  IonLabel,
+  IonInput,
+  IonTextarea,
+  IonSelect,
+  IonSelectOption,
+
+  IonDatetime,
+
+  IonButton,
+  IonRow,
+  IonCol,
+  IonNote
+]
+,
 })
 export class CreateAssignmentPage {
   unit = '';

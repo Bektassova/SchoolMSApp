@@ -15,3 +15,9 @@ describe('ProfilePage', () => {
     expect(component).toBeTruthy();
   });
 });
+
+logout(): void {
+  localStorage.removeItem('isLoggedIn');
+  localStorage.removeItem('userRole');
+  window.location.href = '/';
+}

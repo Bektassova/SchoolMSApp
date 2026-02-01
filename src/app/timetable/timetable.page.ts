@@ -38,8 +38,8 @@ export class TimetablePage {
 
   constructor() {}
 
-  openOnlineClass() {
-    console.log('Opening Zoom/Teams link...');
-    window.open('https://teams.microsoft.com', '_blank');
-  }
+ openOnlineClass(): void {
+  window.open('https://example.com/online-class', '_blank');
+}
+
 }

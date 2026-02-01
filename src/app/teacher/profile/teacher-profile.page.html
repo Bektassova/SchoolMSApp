@@ -6,12 +6,37 @@
 
 <ion-content class="ion-padding">
 
+      <!-- Profile Photo -->
+<div class="profile-photo">
+  <ion-avatar>
+    <img [src]="photo || 'https://ionicframework.com/docs/img/demos/avatar.svg'" />
+  </ion-avatar>
+<ion-button
+  size="small"
+  fill="clear"
+  color="primary"
+  class="choose-photo-btn"
+  (click)="fileInput.click()">
+  Choose photo
+</ion-button>
+
+
+  <input
+    #fileInput
+    type="file"
+    accept="image/*"
+    hidden
+    (change)="onPhotoSelected($event)"
+  />
+</div>
+
   <!-- Basic Info -->
   <ion-card>
-    <ion-card-header>
-      <ion-card-title>{{ teacher.fullName }}</ion-card-title>
-      <p>{{ teacher.role }}</p>
-    </ion-card-header>
+   <div class="profile-name">
+  <h2>{{ teacher.fullName }}</h2>
+  <p>{{ teacher.role }}</p>
+</div>
+
 
     <ion-card-content>
       <ion-item lines="none">

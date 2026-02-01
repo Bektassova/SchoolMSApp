@@ -1,58 +1,86 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { 
-  IonHeader, 
-  IonToolbar, 
-  IonTitle, 
+
+import {
+  IonHeader,
+  IonToolbar,
+  IonTitle,
   IonContent,
-  // Components used in profile.page.html
+  IonAvatar,
+  IonButton,
   IonCard,
   IonCardHeader,
   IonCardTitle,
   IonCardSubtitle,
   IonCardContent,
-  IonAvatar, // New component
+  IonItem,
+  IonLabel,
+  IonIcon,
   IonList,
   IonListHeader,
-  IonItem,
-  IonIcon,
-  IonLabel,
-  IonToggle // New component
+  IonToggle
 } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-profile',
+  standalone: true,
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
-  standalone: true,
   imports: [
-    CommonModule, 
-    FormsModule, 
-    IonHeader, 
-    IonToolbar, 
-    IonTitle, 
+    CommonModule,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
     IonContent,
-    // Imports added to the component
+    IonAvatar,
+    IonButton,
     IonCard,
     IonCardHeader,
     IonCardTitle,
     IonCardSubtitle,
     IonCardContent,
-    IonAvatar,
+    IonItem,
+    IonLabel,
+    IonIcon,
     IonList,
     IonListHeader,
-    IonItem,
-    IonIcon,
-    IonLabel,
     IonToggle
   ]
 })
 export class ProfilePage implements OnInit {
 
-  constructor() { }
+  photo: string | null = null;
 
-  ngOnInit() {
+  teacher = {
+    fullName: 'Alex Johnson',
+    role: 'Student',
+    username: 'alex.johnson',
+    email: 'alex@example.com',
+    dob: '2003-04-12',
+    userId: '009876'
+  };
+
+  ngOnInit(): void {
+    this.photo = localStorage.getItem('profilePhoto_student');
   }
+
+  onPhotoSelected(event: any): void {
+    const file = event?.target?.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.photo = reader.result as string;
+      localStorage.setItem('profilePhoto_student', this.photo);
+    };
+    reader.readAsDataURL(file);
+  }
+
+ logout(): void {
+  alert('logout click works'); // <-- TEST
+  localStorage.removeItem('isLoggedIn');
+  localStorage.removeItem('userRole');
+  window.location.href = '/';
+}
 
 }

@@ -329,3 +329,12 @@ assignments no longer disappear on page reload
 data is preserved when switching between Teacher and Student views
 
 Assignment delete functionality added (Teacher side)
+
+Logout functionality was implemented for the Teacher profile, allowing the user to securely exit the session and return to the application’s start (login) screen.
+Profile photo spacing was adjusted by adding a small top margin, so the avatar now sits slightly below the name for a cleaner, more balanced layout.
+Bottom tab spacing was fine-tuned to prevent long labels like “Assignments” from visually sticking to neighboring tabs.
+Student logout was fixed by replacing the routerLink-based list item with a click handler that clears auth data and redirects to the start page.
+
+The “Join Online Class” button opens a demo online
+
+Added teacher profile photo upload using a localStorage-backed preview and a “Choose photo” button.

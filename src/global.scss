@@ -28,7 +28,7 @@
 /**
  * Ionic Dark Mode
  * -----------------------------------------------------
- * For more info, please see:
+ * For more info, to see:
  * https://ionicframework.com/docs/theming/dark-mode
  */
 
@@ -45,3 +45,25 @@ ion-router-outlet.hydrated {
 ion-router-outlet.hydrated > * {
   pointer-events: auto !important;
 }
+
+
+ion-tab-button {
+  font-size: 14px;
+}
+
+ion-tab-button ion-label {
+  font-size: 16px;
+}
+ion-tab-button {
+  padding-inline: 6px; /* немного расстояния между кнопками */
+}
+
+ion-tab-button ion-label {
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+}
+
+ion-content {
+--background: #040004;
+}
+

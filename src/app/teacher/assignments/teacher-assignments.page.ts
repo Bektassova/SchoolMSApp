@@ -2,18 +2,23 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import {
-  IonHeader, IonToolbar, IonTitle, IonContent,
-  IonButton, IonIcon, IonList, IonItem, IonLabel, IonNote
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonButton,
+  IonIcon,
+  IonList,
+  IonItem,
+  IonLabel,
+  IonNote,
+  IonBadge
 } from '@ionic/angular/standalone';
-import { addIcons } from 'ionicons';
-import { addCircleOutline, createOutline, trashOutline } from 'ionicons/icons';
 
-type TeacherAssignment = {
-  id: number;
-  title: string;
-  unit: string;
-  dueDate: string;
-};
+import { addIcons } from 'ionicons';
+import { addCircleOutline, trashOutline, sendOutline } from 'ionicons/icons';
+
+import { AssignmentService, Assignment } from '../../screens/assignment.service';
 
 @Component({
   selector: 'app-teacher-assignments',
@@ -21,22 +26,52 @@ type TeacherAssignment = {
   templateUrl: './teacher-assignments.page.html',
   styleUrls: ['./teacher-assignments.page.scss'],
   imports: [
-    CommonModule, RouterModule,
-    IonHeader, IonToolbar, IonTitle, IonContent,
-    IonButton, IonIcon, IonList, IonItem, IonLabel, IonNote
+    CommonModule,
+    RouterModule,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonButton,
+    IonIcon,
+    IonList,
+    IonItem,
+    IonLabel,
+    IonNote,
+    IonBadge
   ],
 })
 export class TeacherAssignmentsPage {
-  assignments: TeacherAssignment[] = [
-    { id: 1, title: 'Marketing Report', unit: 'Marketing', dueDate: '2026-01-31' },
-    { id: 2, title: 'Accounting Essay', unit: 'Accountancy', dueDate: '2026-02-01' },
-  ];
+  // Teacher view: list of assignments
+  assignments: Assignment[] = [];
 
-  constructor() {
-    addIcons({ addCircleOutline, createOutline, trashOutline });
+  constructor(private assignmentService: AssignmentService) {
+    // Register icons used in the template
+    addIcons({
+      addCircleOutline,
+      trashOutline,
+      sendOutline
+    });
   }
 
-  delete(id: number) {
-    this.assignments = this.assignments.filter(a => a.id !== id);
+  // Ionic lifecycle: runs every time you enter this page
+  ionViewWillEnter(): void {
+    this.refresh();
+  }
+
+  // Draft -> Published
+  publish(id: number): void {
+    this.assignmentService.publish(id);
+    this.refresh();
+  }
+
+  // Delete assignment (remove from service so it doesn't come back)
+  delete(id: number): void {
+    this.assignmentService.remove(id);
+    this.refresh();
+  }
+
+  private refresh(): void {
+    this.assignments = this.assignmentService.getAll();
   }
 }

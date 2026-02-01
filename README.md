@@ -222,3 +222,110 @@ Teacher Profile page was initially empty. It has now been implemented as a stand
 ### Fix applied
 - Resolved Angular build error `NG2008: Could not find stylesheet file` by creating the missing file:
   - `src/app/teacher/profile/teacher-profile.page.scss`
+
+Implemented Features
+1. Assignment Service (In-Memory Storage)
+
+AssignmentService stores assignments in memory
+
+No backend is used at this stage
+
+Each assignment has the following structure:
+
+id
+
+unit
+
+title
+
+description
+
+dueDate
+
+status (Draft | Published)
+
+Assignments are created with status Draft by default.
+
+2. Create Assignment (Teacher)
+
+Teachers can create a new assignment using the Create Assignment page.
+
+Implemented fields:
+
+Unit (select)
+
+Assignment title
+
+Description
+
+Due date
+
+Assignment file (UI only)
+
+When the Create Assignment button is clicked:
+
+the assignment is saved via AssignmentService
+
+status is set to Draft
+
+the teacher is redirected to My Assignments
+
+3. My Assignments (Teacher)
+
+Displays all assignments created by the teacher
+
+Shows:
+
+assignment title
+
+unit
+
+current status (Draft / Published)
+
+Draft assignments are visible only to the teacher
+
+ Important Technical Notes
+
+Assignments are stored in memory, so data is reset on page reload
+
+ngModel is used to bind form inputs to component variables
+
+Ionic lifecycle handling ensures assignments are refreshed when navigating back
+
+Status Draft means:
+
+assignment is saved
+
+assignment is not yet published for students
+
+Current Status
+
+✔ Assignment creation works
+✔ Assignments are saved correctly
+✔ Assignments are displayed in My Assignments
+✔ Draft status is shown correctly
+Updates & Improvements
+
+Added Publish functionality for teacher assignments
+
+assignments can be switched from Draft to Published
+
+Implemented assignment lifecycle:
+
+Draft → visible only to the teacher
+
+Published → ready for student view
+
+Improved My Assignments page:
+
+assignment list refreshes correctly when navigating back
+
+Ionic lifecycle (ionViewWillEnter) is used instead of ngOnInit
+
+Added localStorage persistence:
+
+assignments no longer disappear on page reload
+
+data is preserved when switching between Teacher and Student views
+
+Assignment delete functionality added (Teacher side)

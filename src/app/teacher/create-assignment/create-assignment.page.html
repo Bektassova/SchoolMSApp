@@ -8,34 +8,73 @@
 
   <ion-card>
     <ion-card-content>
+      
+<!-- Unit -->
+<ion-item>
+  <ion-label position="stacked">Unit</ion-label>
+  <ion-select placeholder="Select Unit" [(ngModel)]="unit">
+     <ion-select-option value="programming">
+      Programming I
+    </ion-select-option>
 
-      <!-- Unit -->
-      <ion-item>
-        <ion-label position="stacked">Unit</ion-label>
-        <ion-select placeholder="Select Unit">
-          <ion-select-option value="cs101">CS101 – Programming</ion-select-option>
-          <ion-select-option value="math">Mathematics</ion-select-option>
-          <ion-select-option value="marketing">Marketing</ion-select-option>
-        </ion-select>
-      </ion-item>
+    <ion-select-option value="mathematics">
+      Mathematics
+    </ion-select-option>
 
-      <!-- Assignment title -->
-      <ion-item>
-        <ion-label position="stacked">Assignment Title</ion-label>
-        <ion-input placeholder="Enter assignment title"></ion-input>
-      </ion-item>
+    <ion-select-option value="web">
+      Web Development
+    </ion-select-option>
 
-      <!-- Description -->
-      <ion-item>
-        <ion-label position="stacked">Description</ion-label>
-        <ion-textarea rows="4" placeholder="Enter description"></ion-textarea>
-      </ion-item>
+    <ion-select-option value="logic">
+      Logic & Algorithms
+    </ion-select-option>
 
-      <!-- Due date -->
-      <ion-item>
-        <ion-label position="stacked">Due Date</ion-label>
-        <ion-datetime presentation="date"></ion-datetime>
-      </ion-item>
+    <ion-select-option value="software">
+      Software Project
+    </ion-select-option>
+
+    <ion-select-option value="database">
+      Database Systems
+    </ion-select-option>
+
+    <ion-select-option value="ui">
+      User Interface Design
+    </ion-select-option>
+
+    <ion-select-option value="ui-design">
+      UI Design
+    </ion-select-option>
+  </ion-select>
+</ion-item>
+
+<!-- Assignment title -->
+<ion-item>
+  <ion-label position="stacked">Assignment Title</ion-label>
+  <ion-input
+    placeholder="Enter assignment title"
+    [(ngModel)]="title">
+  </ion-input>
+</ion-item>
+
+<!-- Description -->
+<ion-item>
+  <ion-label position="stacked">Description</ion-label>
+  <ion-textarea
+    rows="4"
+    placeholder="Enter description"
+    [(ngModel)]="description">
+  </ion-textarea>
+</ion-item>
+
+<!-- Due date -->
+<ion-item>
+  <ion-label position="stacked">Due Date</ion-label>
+  <ion-datetime
+    presentation="date"
+    [(ngModel)]="dueDate">
+  </ion-datetime>
+</ion-item>
+
 
       <!-- File -->
       <ion-item>
@@ -47,9 +86,10 @@
       <!-- Buttons -->
       <ion-row class="ion-margin-top">
         <ion-col size="6">
-          <ion-button expand="block" color="success">
-            Create Assignment
-          </ion-button>
+         <ion-button expand="block" class="ion-margin-top" (click)="save()">
+  Create Assignment
+</ion-button>
+
         </ion-col>
         <ion-col size="6">
           <ion-button expand="block" color="medium" routerLink="/teacher-tabs/assignments">

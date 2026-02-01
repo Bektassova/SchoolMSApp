@@ -32,8 +32,8 @@ export class TeacherSubmissionsPage {
   submissions: Submission[] = [
     {
       id: 1,
-      unit: 'Marketing',
-      assignment: 'Marketing Report',
+      unit: 'Mathematics',
+      assignment: 'Algebraic Thinking and Applications',
       student: 'Alim Alibek',
       email: 'alim@gmail.com',
       fileName: 'report.png',
@@ -42,12 +42,12 @@ export class TeacherSubmissionsPage {
     },
     {
       id: 2,
-      unit: 'Marketing',
-      assignment: 'Marketing Report',
+      unit: 'UI Design',
+      assignment: 'Creating clear, simple, and user-friendly interface designs',
       student: 'Alim Alibek',
       email: 'alim@gmail.com',
       fileName: 'No file',
-      mark: null,
+      mark: 21,
       feedback: '',
     },
   ];

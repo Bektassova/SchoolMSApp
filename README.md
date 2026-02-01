@@ -81,7 +81,7 @@ During development of the Ionic Angular mobile application, several critical arc
 
 This section documents the major problems and the applied solutions.
 
-🔐 Authentication System (Student Login)
+Authentication System (Student Login)
 
 Originally, the application did not support real role-based login and student access.
 A demo authentication system was implemented to allow proper role routing.

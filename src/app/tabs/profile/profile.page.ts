@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NavController } from '@ionic/angular'; // For navigation — для перехода
+import { AuthService } from '../../services/auth.service'; // For user data — для данных
 
 import {
   IonHeader,
@@ -50,18 +52,19 @@ import {
 export class ProfilePage implements OnInit {
 
   photo: string | null = null;
+  user: any = null; // Stores real user data — хранит данные из базы
 
-  teacher = {
-    fullName: 'Alex Johnson',
-    role: 'Student',
-    username: 'alex.johnson',
-    email: 'alex@example.com',
-    dob: '2003-04-12',
-    userId: '009876'
-  };
+  constructor(
+    private authService: AuthService, // Connect service — подключаем сервис
+    private navCtrl: NavController     // Connect router — подключаем роутер
+  ) {}
 
   ngOnInit(): void {
+    // 1. Get saved photo — берем фото из памяти
     this.photo = localStorage.getItem('profilePhoto_student');
+    
+    // 2. Get real user from Database session — берем Максима из базы
+    this.user = this.authService.getCurrentUser();
   }
 
   onPhotoSelected(event: any): void {
@@ -76,11 +79,11 @@ export class ProfilePage implements OnInit {
     reader.readAsDataURL(file);
   }
 
- logout(): void {
-  alert('logout click works'); // <-- TEST
-  localStorage.removeItem('isLoggedIn');
-  localStorage.removeItem('userRole');
-  window.location.href = '/';
-}
-
+  logout(): void {
+    // 1. Clear session — удаляем данные из памяти
+    this.authService.logout();
+    
+    // 2. Go back to login — возвращаемся на страницу входа
+    this.navCtrl.navigateRoot('/auth/login');
+  }
 }

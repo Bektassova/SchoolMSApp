@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 
+// Services — Сервисы
 import { DataService, Announcement, Unit, Assignment } from '../../services/data.service';
+import { AuthService } from '../../services/auth.service'; // Added AuthService — Добавили сервис авторизации
 
 import {
   IonHeader, IonToolbar, IonTitle, IonContent, IonCard,
@@ -32,6 +34,9 @@ import { calendarOutline, timeOutline, checkmarkDoneOutline } from 'ionicons/ico
 })
 export class DashboardPage implements OnInit {
 
+  // User data — Данные пользователя
+  user: any = null; // To store real user data — Для хранения данных из базы
+
   announcements: Announcement[] = [];
   units: Unit[] = [];
   stats: any = null;
@@ -60,11 +65,19 @@ export class DashboardPage implements OnInit {
     ]
   };
 
-  constructor(private dataService: DataService, private router: Router) {
+  constructor(
+    private dataService: DataService, 
+    private authService: AuthService, // Added AuthService to constructor — Добавили в конструктор
+    private router: Router
+  ) {
     addIcons({ calendarOutline, timeOutline, checkmarkDoneOutline });
   }
 
   ngOnInit() {
+    // 1. Load Real User — Загружаем реального пользователя
+    this.user = this.authService.getCurrentUser(); 
+
+    // 2. Load Dashboard Data — Загружаем данные для дашборда
     this.announcements = this.dataService.getAnnouncements();
     this.units = this.dataService.getUnits();
     this.stats = this.dataService.studentStats;
@@ -72,7 +85,6 @@ export class DashboardPage implements OnInit {
   }
 
   goTimetable() {
-
     this.router.navigateByUrl('/student-tabs/timetable');
   }
 
@@ -85,7 +97,7 @@ export class DashboardPage implements OnInit {
     const todayClasses = this.schedule[todayName] || [];
 
     return todayClasses.find((lesson: any) => {
-      // берём НАЧАЛО интервала, например "09:00" из "09:00 - 10:30"
+      // Get the START of the interval — Берем начало интервала
       const start = String(lesson.time).split(' - ')[0];
       const [h, m] = start.split(':').map(Number);
       return (h * 60 + m) > currentTime;

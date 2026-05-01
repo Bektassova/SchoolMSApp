@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule, NavController, AlertController } from '@ionic/angular';
+import { IonicModule, NavController, AlertController, LoadingController } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -12,48 +12,66 @@ import { AuthService } from '../../services/auth.service';
   imports: [IonicModule, CommonModule, FormsModule],
 })
 export class LoginPage {
-  email = '';
+  // We use 'email' variable to bind to the username field in the UI
+  email = ''; 
   password = '';
 
   constructor(
     private authService: AuthService,
     private navCtrl: NavController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private loadingCtrl: LoadingController // Added to show a spinner during the request
   ) {}
 
- async login() {
+  async login() {
+    // 1. Show a loading spinner so the user knows something is happening
+    const loading = await this.loadingCtrl.create({
+      message: 'Authenticating...',
+    });
+    await loading.present();
 
+    console.log('Attempting login for:', this.email);
 
-  // 2) Логи, чтобы увидеть что реально в полях
-  console.log('EMAIL RAW:', JSON.stringify(this.email));
-  console.log('PASS RAW:', JSON.stringify(this.password));
+    // 2. Call the updated AuthService
+    // Since it returns an Observable, we must .subscribe() to get the result
+    this.authService.login(this.email, this.password).subscribe({
+      next: async (response: any) => {
+        await loading.dismiss();
 
-  // 3) Проверка demo-юзера
-  const user = this.authService.login(this.email, this.password);
+        if (response && response.status === 'success') {
+          const user = response.user;
+          console.log('Login successful! User role:', user.role);
 
-  if (!user) {
-    const alertBox = await this.alertCtrl.create({
-      header: 'Demo login failed',
-      message: `User not found.\nTry: student@test.com / 123456`,
+          // 3. Navigate based on the real role from the Database
+         if (user.role.toLowerCase() === 'student') {
+  console.log('Navigating to Student Dashboard...');
+  this.navCtrl.navigateRoot('/student-tabs/dashboard');
+} else if (user.role.toLowerCase() === 'teacher' || user.role.toLowerCase() === 'admin') {
+  console.log('Navigating to Teacher Section...');
+  this.navCtrl.navigateRoot('/teacher-tabs/assignments');
+} else {
+  console.warn('Unknown role:', user.role);
+}
+        } else {
+          // If server returns error status
+          this.showError('Login Failed', response.message || 'Invalid credentials');
+        }
+      },
+      error: async (err) => {
+        await loading.dismiss();
+        console.error('Network or Server error:', err);
+        this.showError('Server Error', 'Could not connect to the API. Check MAMP and URL.');
+      }
+    });
+  }
+
+  // Helper method to show alerts
+  async showError(header: string, message: string) {
+    const alert = await this.alertCtrl.create({
+      header: header,
+      message: message,
       buttons: ['OK'],
     });
-    await alertBox.present();
-    return;
+    await alert.present();
   }
-
-  // 4) Переход
-  if (user.role === 'student') {
-    this.navCtrl.navigateRoot('/student-tabs/dashboard');
-    return;
-  }
-
-  if (user.role === 'teacher') {
-   this.navCtrl.navigateRoot('/teacher-tabs/assignments');
-
-    return;
-  }
-
-  this.navCtrl.navigateRoot('/auth/login');
-}
-
 }

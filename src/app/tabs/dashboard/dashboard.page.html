@@ -12,7 +12,14 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
-  
+  <!-- ADD THIS "Welcome" BLOCK HERE —-->
+  <div class="welcome-section" style="margin-bottom: 20px; padding: 10px;">
+    <h2 style="font-weight: bold; margin: 0;">
+      Welcome, {{ user?.name || 'Student' }}! 👋
+    </h2>
+    <p style="color: gray; margin: 5px 0 0 0;">It's good to see you back.</p>
+  </div>
+  <!-- END OF WELCOME BLOCK -->
   <ion-card color="light" class="ion-no-margin ion-margin-bottom">
     <ion-card-header>
       <ion-card-title>Quick Access</ion-card-title>

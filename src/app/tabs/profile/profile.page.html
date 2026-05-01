@@ -8,36 +8,42 @@
 
   <ion-card class="ion-margin-bottom">
     <ion-card-header class="ion-text-center">
-    <!-- Profile Photo -->
-<div class="profile-photo">
-  <ion-avatar>
-    <img [src]="photo || 'https://ionicframework.com/docs/img/demos/avatar.svg'" />
-  </ion-avatar>
-<ion-button
-  size="small"
-  fill="clear"
-  color="primary"
-  class="choose-photo-btn"
-  (click)="fileInput.click()">
-  Choose photo
-</ion-button>
+      <!-- Profile Photo -->
+      <div class="profile-photo">
+        <ion-avatar>
+          <!-- Show uploaded photo or default avatar -->
+          <img [src]="photo || 'https://ionicframework.com/docs/img/demos/avatar.svg'" />
+        </ion-avatar>
+        
+        <ion-button
+          size="small"
+          fill="clear"
+          color="primary"
+          class="choose-photo-btn"
+          (click)="fileInput.click()">
+          Choose photo
+        </ion-button>
 
+        <!-- Hidden file input for photo selection -->
+        <input
+          #fileInput
+          type="file"
+          accept="image/*"
+          hidden
+          (change)="onPhotoSelected($event)"
+        />
+      </div>
 
-  <input
-    #fileInput
-    type="file"
-    accept="image/*"
-    hidden
-    (change)="onPhotoSelected($event)"
-  />
-</div>
-
-      <ion-card-title class="ion-padding-top">Alex Johnson</ion-card-title>
-      <ion-card-subtitle>Student ID: 009876</ion-card-subtitle>
+      <!-- Real user data from Database (Maxim) -->
+      <!-- The '?' prevents errors if data is still loading -->
+      <ion-card-title class="ion-padding-top">{{ user?.name }}</ion-card-title>
+      <ion-card-subtitle>Role: {{ user?.role }}</ion-card-subtitle>
     </ion-card-header>
+
     <ion-card-content class="ion-text-center">
-      <p>B.Sc. Computer Science</p>
-      <p>Enrollment Year: 2024</p>
+      <!-- Showing email and username from DB -->
+      <p>Email: {{ user?.email }}</p>
+      <p>Username: {{ user?.username }}</p>
     </ion-card-content>
   </ion-card>
   
@@ -72,10 +78,11 @@
       <ion-toggle slot="end" checked></ion-toggle>
     </ion-item>
 
+    <!-- Logout Button triggers the logout() function in .ts -->
     <ion-button expand="block" color="danger" class="ion-margin-top" (click)="logout()">
-  <ion-icon slot="start" name="log-out-outline"></ion-icon>
-  Log Out
-</ion-button>
+      <ion-icon slot="start" name="log-out-outline"></ion-icon>
+      Log Out
+    </ion-button>
 
   </ion-list>
   

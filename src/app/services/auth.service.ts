@@ -1,42 +1,46 @@
-console.log('AUTH SERVICE REAL FILE LOADED ✅');
-
 import { Injectable } from '@angular/core';
-
-export type Role = 'student' | 'teacher' | 'admin';
-
-export interface DemoUser {
-  email: string;
-  password: string;
-  role: Role;
-  name: string;
-}
+import { HttpClient } from '@angular/common/http';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  // Server API endpoint URL
+  private apiUrl = 'http://localhost:8888/lms-rest-api/endpoints/auth.php';
 
-  private users: DemoUser[] = [
-    { email: 'student@test.com', password: '123456', role: 'student', name: 'Student Demo' },
-    { email: 'teacher@test.com', password: '123456', role: 'teacher', name: 'Teacher Demo' },
-    { email: 'admin@test.com',   password: '123456', role: 'admin',   name: 'Admin Demo' },
-  ];
+  constructor(private http: HttpClient) {}
 
-  login(email: string, password: string): DemoUser | null {
-    const e = (email || '').trim();
-    const p = (password || '').trim();
-
-    const u = this.users.find(x => x.email === e && x.password === p);
-    if (!u) return null;
-
-    localStorage.setItem('demo_user', JSON.stringify(u));
-    return u;
+  /**
+   * Sends login credentials to the server
+   * @param username string
+   * @param password string
+   * @returns Observable with server response
+   */
+  login(username: string, password: string): Observable<any> {
+    return this.http.post(this.apiUrl, {
+      username: username,
+      password: password
+    }).pipe(
+      tap((response: any) => {
+        // If authentication is successful, store user data in local storage
+        if (response && response.status === 'success') {
+          localStorage.setItem('currentUser', JSON.stringify(response.user));
+        }
+      })
+    );
   }
 
-  getCurrentUser(): DemoUser | null {
-    const raw = localStorage.getItem('demo_user');
-    return raw ? (JSON.parse(raw) as DemoUser) : null;
+  /**
+   * Retrieves the stored user data from local storage
+   */
+  getCurrentUser() {
+    const user = localStorage.getItem('currentUser');
+    return user ? JSON.parse(user) : null;
   }
 
-  logout(): void {
-    localStorage.removeItem('demo_user');
+  /**
+   * Removes user data and logs out
+   */
+  logout() {
+    localStorage.removeItem('currentUser');
   }
 }

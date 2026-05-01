@@ -338,3 +338,29 @@ Student logout was fixed by replacing the routerLink-based list item with a clic
 The “Join Online Class” button opens a demo online
 
 Added teacher profile photo upload using a localStorage-backed preview and a “Choose photo” button.
+
+
+
+Project Update: Backend Integration & Dynamic Data (1stMay 2026)
+Key changes in this update:
+
+Authentication System:
+
+Linked login.page.ts with auth.service.ts to enable real-time user validation.
+
+Updated main.ts to provide HttpClient for API communication.
+
+Dynamic Dashboard:
+
+Integrated dashboard.page.ts with the Backend to fetch and display the logged-in user's name.
+
+Modified dashboard.page.html to show personalized greetings.
+
+User Profile & Session:
+
+Updated profile.page.ts and html to display real database records (name, email, role).
+
+Implemented secure Logout functionality to clear local storage and redirect to login.
+
+Teacher Features:
+Refactored teacher-submissions.page.ts to prepare for dynamic assignment tracking.

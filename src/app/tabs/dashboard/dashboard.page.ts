@@ -78,7 +78,7 @@ export class DashboardPage implements OnInit {
     this.user = this.authService.getCurrentUser(); 
 
     // 2. Load Dashboard Data — Загружаем данные для дашборда
-    this.announcements = this.dataService.getAnnouncements();
+    this.announcements = this.dataService.getAnnouncements() as any;
     this.units = this.dataService.getUnits();
     this.stats = this.dataService.studentStats;
     this.pendingTasks = this.dataService.getAssignments();

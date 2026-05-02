@@ -26,8 +26,10 @@ export class AssignmentsPage implements OnInit {
     this.loadAssignments();
   }
 
-  loadAssignments() {
-    const all = this.dataService.getAssignments();
+ loadAssignments() {
+    // Добавляем 'as any[]', чтобы TypeScript перестал ругаться на 'status'
+    const all = this.dataService.getAssignments() as any[]; 
+    
     this.upcomingAssignments = all.filter(a => a.status === 'upcoming');
     this.overdueAssignments = all.filter(a => a.status === 'overdue');
     this.completedAssignments = all.filter(a => a.status === 'completed');

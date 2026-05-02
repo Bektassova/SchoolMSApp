@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http'; // Добавили для связи с PHP
+import { Observable } from 'rxjs';
 
 export interface Announcement {
   id: number;
   title: string;
   content: string;
   date: string;
-  priority: 'high' | 'low'; // Нужно для вашего Dashboard HTML
+  priority: 'high' | 'low';
 }
 
 export interface Unit {
@@ -33,80 +35,37 @@ export interface Assignment {
 })
 export class DataService {
 
-  // Данные статистики, которые запрашивает ваш Dashboard
+  // URL of my PHP- My PHP проекта в MAMP 
+  private apiUrl = 'http://localhost/lms-rest-api'; 
+
   public studentStats = {
     gpa: '3.8',
     credits: 45,
     attendance: '92%'
   };
 
-  private units: Unit[] = [
-    { 
-      id: '1', 
-      code: 'CS 101', 
-      name: 'Introduction to Programming', 
-      lecturer: 'Dr. Alan Turing',
-      semester: 1,
-      progress: 0.7,
-      icon: 'code-slash-outline',
-      status: 'Enrolled'
-    },
-    { 
-      id: '2', 
-      code: 'MATH 205', 
-      name: 'Calculus II', 
-      lecturer: 'Dr. Sarah Smith',
-      semester: 2,
-      progress: 0.4,
-      icon: 'calculator-outline',
-      status: 'Enrolled'
-    }
-  ];
+  constructor(private http: HttpClient) { } // Внедряем HttpClient
 
-  private assignments: Assignment[] = [
-    {
-      id: 'a1',
-      title: 'Python Basics Quiz',
-      dueDate: new Date('2025-12-30T23:59:00'),
-      status: 'upcoming',
-      priority: true,
-      unitCode: 'CS 101'
-    },
-    {
-      id: 'a2',
-      title: 'Calculus Assignment 2',
-      dueDate: new Date('2025-12-28T10:00:00'),
-      status: 'overdue',
-      priority: false,
-      unitCode: 'MATH 205'
-    }
-  ];
-
-  private announcements: Announcement[] = [
-    { 
-      id: 1, 
-      title: 'Welcome back!', 
-      content: 'New semester starts today. Check your schedule.', 
-      date: '2025-12-29',
-      priority: 'high'
-    }
-  ];
-
-  constructor() { }
-
-  getUnits() {
-    return this.units;
+  // ---  The New Metod for the Timetable-НОВЫЙ МЕТОД ДЛЯ РАСПИСАНИЯ ---
+  getStudentTimetable(userId: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/get_timetable.php?student_id=${userId}`);
   }
 
-  getUnitById(id: string) {
-    return this.units.find(u => u.id === id);
+  // Эти методы пока оставляем как есть, чтобы Dashboard не сломался, 
+  // но позже мы их тоже переделаем на получение данных из MySQL
+  getUnits() {
+    return [
+      { id: '1', code: 'CS 101', name: 'Introduction to Programming', lecturer: 'Dr. Alan Turing', semester: 1, progress: 0.7, icon: 'code-slash-outline', status: 'Enrolled' }
+    ];
   }
 
   getAssignments() {
-    return this.assignments;
+    return [];
   }
 
   getAnnouncements() {
-    return this.announcements;
+    return [
+      { id: 1, title: 'Welcome!', content: 'Check your new schedule.', date: '2026-05-01', priority: 'high' }
+    ];
   }
 }

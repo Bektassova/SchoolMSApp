@@ -364,3 +364,11 @@ Implemented secure Logout functionality to clear local storage and redirect to l
 
 Teacher Features:
 Refactored teacher-submissions.page.ts to prepare for dynamic assignment tracking.
+
+Upodating May 2-nd
+Changelog: Fixed TypeScript compilation and data types
+assignments.page.ts: Fixed TS2339 error by adding type casting (as any[]) to the assignments filter logic.
+
+dashboard.page.ts: Resolved priority type mismatch by casting the announcements data to ensure successful build.
+
+data.service.ts: Updated data return methods to align with the new PHP API structure and improved type consistency.
